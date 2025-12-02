@@ -10,7 +10,7 @@ class Course:
         """Get all courses"""
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM course")
+        cursor.execute("SELECT * FROM program")
         courses = cursor.fetchall()
         conn.close()
         return courses

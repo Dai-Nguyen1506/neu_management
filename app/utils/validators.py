@@ -9,14 +9,16 @@ def validate_email(email):
     return re.match(pattern, email) is not None
 
 
-def validate_phone(phone):
-    """Validate phone number format"""
-    pattern = r'^[\d\s\-\+\(\)]{10,}$'
-    return re.match(pattern, phone) is not None if phone else True
+# def validate_phone(phone):
+#     """Validate phone number format"""
+#     pattern = r'^[\d\s\-\+\(\)]{10,}$'
+#     return re.match(pattern, phone) is not None if phone else True
 
 
 def validate_date(date_str):
-    """Validate date format (YYYY-MM-DD)"""
+    """Validate date format (YYYY-MM-DD) or empty"""
+    if not date_str or date_str.strip() == '':
+        return True  # Empty dates are allowed for optional fields
     try:
         datetime.strptime(date_str, '%Y-%m-%d')
         return True
@@ -43,8 +45,8 @@ def validate_student_data(data, is_update=False):
     if data.get('email') and not validate_email(data.get('email')):
         errors.append("Invalid email format")
 
-    if data.get('phone_number') and not validate_phone(data.get('phone_number')):
-        errors.append("Invalid phone number format")
+    # if data.get('phone_number') and not validate_phone(data.get('phone_number')):
+    #     errors.append("Invalid phone number format")
 
     if data.get('date_of_birth') and not validate_date(data.get('date_of_birth')):
         errors.append("Invalid date format (use YYYY-MM-DD)")

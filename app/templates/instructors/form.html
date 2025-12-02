@@ -31,14 +31,14 @@ endblock %}
                     <div class="mb-3">
                         <label for="specialization" class="form-label">Specialization</label>
                         <input type="text" class="form-control" id="specialization" name="specialization"
-                            value="{{ instructor.specialization if instructor else '' }}">
+                            value="{{ instructor.specialization if instructor else '' }}" required>
                     </div>
 
                     <!-- Office Location -->
                     <div class="mb-3">
                         <label for="office_location" class="form-label">Office Location</label>
                         <input type="text" class="form-control" id="office_location" name="office_location"
-                            value="{{ instructor.office_location if instructor else '' }}">
+                            value="{{ instructor.office_location if instructor else '' }}" required>
                     </div>
 
                     <!-- Buttons -->

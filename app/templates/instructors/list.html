@@ -17,16 +17,13 @@
     <div class="card-body">
         <form method="POST" action="{{ url_for('instructors.search') }}">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <input type="text" name="instructor_id" class="form-control" placeholder="Instructor ID">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <input type="text" name="name" class="form-control" placeholder="Full Name">
                 </div>
-                <div class="col-md-3">
-                    <input type="email" name="email" class="form-control" placeholder="Email">
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <button type="submit" class="btn btn-info w-100">Search</button>
                 </div>
             </div>
@@ -35,10 +32,11 @@
 </div>
 
 <!-- Instructors Table -->
-<div class="table-responsive">
+<div class="table-responsive border border-primary rounded-4">
     <table class="table table-striped table-hover">
         <thead class="table-dark">
             <tr>
+                <th>#</th>
                 <th>ID</th>
                 <th>Full Name</th>
                 <th>Email</th>
@@ -55,6 +53,7 @@
             {% endif %}
             {% for instructor in instructors %}
             <tr>
+                <td>{{ loop.index }}</td>
                 <td>{{ instructor.instructor_id }}</td>
                 <td>{{ instructor.full_name }}</td>
                 <td>{{ instructor.email }}</td>
@@ -62,9 +61,9 @@
                 <td>{{ instructor.office_location or 'N/A' }}</td>
                 <td>
                     <a href="{{ url_for('instructors.update', instructor_id=instructor.instructor_id) }}"
-                        class="btn btn-sm btn-warning">Edit</a>
-                    <button class="btn btn-sm btn-danger" onclick="deleteInstructor('{{ instructor.instructor_id }}')"
-                        type="button">Delete</button>
+                        class="btn btn-sm btn-outline-warning p-2 rounded-pill" style="width: 60px;">Edit</a>
+                    <button class="btn btn-sm btn-outline-danger p-2 rounded-pill" style="width: 60px;"
+                        onclick=" deleteInstructor('{{ instructor.instructor_id }}')" type="button">Delete</button>
                 </td>
             </tr>
             {% endfor %}

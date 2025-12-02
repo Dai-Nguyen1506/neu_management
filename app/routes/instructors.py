@@ -28,12 +28,10 @@ def search():
     if request.method == 'POST':
         instructor_id = request.form.get('instructor_id')
         name = request.form.get('name')
-        email = request.form.get('email')
 
         instructors = InstructorService.search_instructors(
             instructor_id=instructor_id,
-            name=name,
-            email=email
+            name=name
         )
         return render_template('instructors/list.html', instructors=instructors)
     

@@ -26,7 +26,7 @@ class Instructor:
         return instructor
 
     @staticmethod
-    def search(instructor_id=None, name=None, email=None):
+    def search(instructor_id=None, name=None):
         """Search instructors by various criteria"""
         conn = get_connection()
         cursor = conn.cursor(dictionary=True)
@@ -40,9 +40,6 @@ class Instructor:
         if name:
             query += " AND full_name LIKE %s"
             values.append("%" + name + "%")
-        if email:
-            query += " AND email = %s"
-            values.append(email)
 
         cursor.execute(query, tuple(values))
         instructors = cursor.fetchall()

@@ -33,13 +33,23 @@ class StudentService:
         if Student.email_exists(data.get('email')):
             return False, ["Email already exists"]
 
+        # Clean empty optional fields
+        date_of_birth = data.get('date_of_birth')
+        date_of_birth = None if not date_of_birth or date_of_birth.strip() == '' else date_of_birth
+        
+        phone_number = data.get('phone_number')
+        phone_number = None if not phone_number or phone_number.strip() == '' else phone_number
+        
+        address = data.get('address')
+        address = None if not address or address.strip() == '' else address
+
         # Create student
         Student.create(
             full_name=data.get('full_name'),
             email=data.get('email'),
-            phone_number=data.get('phone_number'),
-            address=data.get('address'),
-            date_of_birth=data.get('date_of_birth'),
+            phone_number=phone_number,
+            address=address,
+            date_of_birth=date_of_birth,
             gender=data.get('gender'),
             program_id=data.get('program_id'),
             enrollment_year=data.get('enrollment_year')
@@ -62,6 +72,14 @@ class StudentService:
         if 'email' in data and data['email'] != student.get('email'):
             if Student.email_exists(data.get('email')):
                 return False, ["Email already exists"]
+
+        # Clean empty optional fields
+        if 'date_of_birth' in data:
+            data['date_of_birth'] = None if not data['date_of_birth'] or data['date_of_birth'].strip() == '' else data['date_of_birth']
+        if 'phone_number' in data:
+            data['phone_number'] = None if not data['phone_number'] or data['phone_number'].strip() == '' else data['phone_number']
+        if 'address' in data:
+            data['address'] = None if not data['address'] or data['address'].strip() == '' else data['address']
 
         # Update student
         Student.update(student_id, **data)
