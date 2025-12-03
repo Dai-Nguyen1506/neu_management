@@ -20,11 +20,11 @@ def create_app(config_name=None):
     # Register blueprints
     from app.routes.students import students_bp
     from app.routes.instructors import instructors_bp
-    from app.routes.courses import courses_bp
+    from app.routes.programs import programs_bp
     
     app.register_blueprint(students_bp)
     app.register_blueprint(instructors_bp)
-    app.register_blueprint(courses_bp)
+    app.register_blueprint(programs_bp)
     
     # Home route
     @app.route('/')

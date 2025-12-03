@@ -1,7 +1,7 @@
 # app/routes/students.py
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 from app.services.student_service import StudentService
-from app.models.course_model import Course
+from app.models.program_model import Program
 
 students_bp = Blueprint('students', __name__, url_prefix='/students', template_folder='../templates')
 
@@ -47,7 +47,7 @@ def search():
 def create():
     """Create a new student"""
     if request.method == 'GET':
-        programs = Course.get_all()  # Get programs
+        programs = Program.get_all()  # Get programs
         return render_template('students/form.html', programs=programs)
 
     # Handle POST request
@@ -80,7 +80,7 @@ def update(student_id):
         return redirect(url_for('students.list'))
 
     if request.method == 'GET':
-        programs = Course.get_all()
+        programs = Program.get_all()
         return render_template('students/form.html', student=student, programs=programs)
 
     # Handle POST request

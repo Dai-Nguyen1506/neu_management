@@ -80,28 +80,28 @@ def validate_instructor_data(data, is_update=False):
     return errors
 
 
-def validate_course_data(data, is_update=False):
-    """Validate course data"""
+def validate_program_data(data, is_update=False):
+    """Validate program data"""
     errors = []
 
-    if not is_update:
-        # Required fields for creation
-        if not data.get('course_name'):
-            errors.append("Course name is required")
-        if not data.get('course_code'):
-            errors.append("Course code is required")
-        if not data.get('program_id'):
-            errors.append("Program is required")
-        if not data.get('credits'):
-            errors.append("Credits is required")
+#     if not is_update:
+#         # Required fields for creation
+#         if not data.get('course_name'):
+#             errors.append("Course name is required")
+#         if not data.get('course_code'):
+#             errors.append("Course code is required")
+#         if not data.get('program_id'):
+#             errors.append("Program is required")
+#         if not data.get('credits'):
+#             errors.append("Credits is required")
 
-    # Conditional validations
-    if data.get('credits'):
-        try:
-            credits = int(data.get('credits'))
-            if credits < 1 or credits > 10:
-                errors.append("Credits must be between 1 and 10")
-        except (ValueError, TypeError):
-            errors.append("Credits must be a number")
+#     # Conditional validations
+#     if data.get('credits'):
+#         try:
+#             credits = int(data.get('credits'))
+#             if credits < 1 or credits > 10:
+#                 errors.append("Credits must be between 1 and 10")
+#         except (ValueError, TypeError):
+#             errors.append("Credits must be a number")
 
     return errors
