@@ -1,8 +1,65 @@
 {% extends "base.html" %}
 
-{% block title %}{% if instructor %}Edit Instructor{% else %}Add New Instructor{% endif %} - Student Management{%
-endblock %}
+{% block title %}{% if program %}Edit Program{% else %}Add New Program{% endif %} - Student Management{% endblock %}
 
 {% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card btn-hover">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">{% if program %}Edit Program{% else %}Add New Program{% endif %}</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST"
+                    action="{% if program %}{{ url_for('programs.update', program_id=program.program_id) }}{% else %}{{ url_for('programs.create') }}{% endif %}">
+                    <!-- Program name -->
+                    <div class="mb-3">
+                        <label for="program_name" class="form-label">Program Name *</label>
+                        <input type="text" class="form-control" id="program_name" name="program_name"
+                            value="{{ program.program_name if program else '' }}" required>
+                    </div>
 
+                    <!-- Department -->
+                    <div class="mb-3">
+                        <label for="department" class="form-label">Department *</label>
+                        <input type="text" class="form-control" id="department" name="department"
+                            value="{{ program.department if program else '' }}" required>
+                    </div>
+
+                    <!-- Duration Year -->
+                    <div class="mb-3">
+                        <label for="duration_years" class="form-label">Duration Year *</label>
+                        <input type="number" class="form-control" id="duration_years" name="duration_years"
+                            value="{{ program.duration_years if program else '' }}">
+                    </div>
+
+                    <!-- Degree Type -->
+                    <div class="mb-3">
+                        <label for="degree_type" class="form-label">Degree Type *</label>
+                        <select class="form-select" id="degree_type" name="degree_type" required>
+                            <option value="Bachelor">-- Degree Type --</option>
+                            <option value="Bachelor" {% if program and program.degree_type=='Bachelor' %}selected{%
+                                endif %}>Bachelor
+                            </option>
+                            <option value="Master" {% if program and program.degree_type=='Master' %}selected{% endif
+                                %}>
+                                Master</option>
+                            <option value="PhD" {% if program and program.degree_type=='PhD' %}selected{% endif %}>PhD
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <!-- Buttons -->
+                    <div class="text-end">
+                        <a href="{% if program %}{{ url_for('programs.get_by_id', program_id=program.program_id) }}{% else %}{{ url_for('programs.list') }}{% endif %}"
+                            class="btn btn-secondary">Back</a>
+                        <button type="submit" class="btn btn-primary">{% if program %}Update{% else %}Add{% endif %}
+                            Program</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -86,20 +86,18 @@ def validate_program_data(data, is_update=False):
 
     if not is_update:
         # Required fields for creation
-        if not data.get('course_name'):
-            errors.append("Course name is required")
-        if not data.get('course_code'):
-            errors.append("Course code is required")
-        if not data.get('program_id'):
-            errors.append("Program is required")
-        if not data.get('credits'):
-            errors.append("Credits is required")
+        if not data.get('program_name'):
+            errors.append("Program name is required")
+        if not data.get('department'):
+            errors.append("department")
+        if not data.get('degree_type'):
+            errors.append("Degree Type is required")
 
     # Conditional validations
     if data.get('duration_years'):
         try:
             credits = int(data.get('duration_years'))
-            if credits < 3 or credits > 8:
+            if credits < 1 or credits > 8:
                 errors.append("Duration Years must be between 3 and 8")
         except (ValueError, TypeError):
             errors.append("Duration Years must be a number")

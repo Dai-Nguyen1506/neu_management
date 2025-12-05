@@ -3,11 +3,11 @@
 {% block title %}Instructors - Student Management{% endblock %}
 
 {% block content %}
-<div class="row mb-4">
-    <div class="col-md-6">
-        <h1>Instructors</h1>
+<div class="row mb-4 border-bottom border-white">
+    <div class="col-md-6 p-2">
+        <h1 class="text-white">Instructors</h1>
     </div>
-    <div class="col-md-6 text-end">
+    <div class="col-md-6 text-end p-2">
         <a href="{{ url_for('instructors.create') }}" class="btn btn-primary btn-hover">+ Add New Instructor</a>
     </div>
 </div>

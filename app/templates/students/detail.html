@@ -3,62 +3,60 @@
 {% block title %}{{ student.full_name }} - Student Management{% endblock %}
 
 {% block content %}
-<div class="row d-flex justify-content-center align-items-center">
-    <div class=" col-md-8">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Student Details</h4>
-            </div>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <h5>{{ student.full_name }}</h5>
-                        <p><strong>Student ID:</strong> {{ student.student_id }}</p>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <a href="{{ url_for('students.update', student_id=student.student_id) }}"
-                            class="btn btn-warning">Edit</a>
-                        <button class="btn btn-danger" onclick="deleteStudent('{{ student.student_id }}')"
-                            type="button">Delete</button>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>Email:</strong> {{ student.email }}</p>
-                        <p><strong>Phone:</strong> {{ student.phone_number or 'N/A' }}</p>
-                        <p><strong>Gender:</strong> {{ student.gender or 'N/A' }}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Date of Birth:</strong> {{ student.date_of_birth or 'N/A' }}</p>
-                        <p><strong>Address:</strong> {{ student.address or 'N/A' }}</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>Program:</strong> {{ student.program_name or 'N/A' }}</p>
-                        <p><strong>Enrollment Year:</strong> {{ student.enrollment_year }}</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p><strong>Created At:</strong> {{ student.created_at or 'N/A' }}</p>
-                        <p><strong>Updated At:</strong> {{ student.updated_at or 'N/A' }}</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div>
-                    <a href="{{ url_for('students.list') }}" class="btn btn-secondary">Back to List</a>
-                </div>
-            </div>
-        </div>
+<div class="row mb-4 border-bottom border-white">
+    <div class="col-md-10 p-2">
+        <h1 class="text-white">{{ student.full_name }}</h1>
+    </div>
+    <div class="col-md-2 text-end p-2">
+        <a href="{{ url_for('students.list') }}" class="btn btn-lg btn-secondary btn-hover ">Back</a>
     </div>
 </div>
+
+<div class="border border-white rounded-4 p-3 text-white ">
+    <div class="px-4 py-2 row">
+        <h2 class="col-6">Information</h2>
+        <div class="col-md-6 text-end">
+            <a href="{{ url_for('students.update', student_id=student.student_id) }}"
+                class="btn btn-outline-warning rounded-4" type="button">Edit</a>
+            <button class="btn btn-outline-danger rounded-4" onclick="deleteStudent('{{ student.student_id }}')"
+                type="button">Delete</button>
+        </div>
+    </div>
+    <hr class="border-bottom border-white m-2">
+    <div class="px-4 py-2 row">
+        <div class="col-6">
+            <p class="fw-bolder">Student ID : <span class="fw-normal">{{ student.student_id }}</span></p>
+            <p class="fw-bolder">Birthday : <span class="fw-normal">{{ student.date_of_birth }}</span></p>
+            <p class="fw-bolder">Gender : <span class="fw-normal">{{ student.gender }}</span></p>
+            <p class="fw-bolder">Phone : <span class="fw-normal">{{ student.phone_number }}</span></p>
+            <p class="fw-bolder">Address : <span class="fw-normal">{{ student.address }}</span></p>
+        </div>
+        <div class="col-6">
+            <p class="fw-bolder">Enrollment Year : <span class="fw-normal">{{ student.enrollment_year }}</span></p>
+            <p class="fw-bolder">Program : <span class="fw-normal">{{ student.program_name }}</span></p>
+            <p class="fw-bolder">Advisor : <span class="fw-normal">None</span></p>
+            <p class="fw-bolder">Email : <span class="fw-normal">{{ student.email }}</span></p>
+        </div>
+    </div>
+    <hr class="border-bottom border-white m-2">
+    <div class="px-4 py-2 row">
+        <h2 class="col-6">Enrollment</h2>
+    </div>
+    <hr class="border-bottom border-white m-2">
+    <div class="px-4 py-2">
+        <div>
+            <p class="fw-bolder">Enrollment ID : <span class="fw-normal">{{ student.student_id }}</span></p>
+            <p class="fw-bolder">Course ID : <span class="fw-normal">{{ student.date_of_birth }}</span></p>
+            <p class="fw-bolder">Semester : <span class="fw-normal">{{ student.gender }}</span></p>
+            <p class="fw-bolder">Academic Year : <span class="fw-normal">{{ student.phone_number }}</span></p>
+            <p class="fw-bolder">Grade : <span class="fw-normal">{{ student.address }}</span></p>
+            <p class="fw-bolder">Status : <span class="fw-normal">{{ student.address }}</span></p>
+        </div>
+    </div>
+
+</div>
+
+
 
 <script>
     function deleteStudent(id) {

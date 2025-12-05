@@ -14,6 +14,24 @@ class Course:
         conn.close()
         return courses
     
+    @staticmethod
     def get_by_program_id(program_id):
         """Get Courrse By ID Program"""
-        None
+        conn = get_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        query = "SELECT * FROM course WHERE program_id = %s"
+
+        cursor.execute(query, (program_id,))
+        courses = cursor.fetchall()
+        conn.close()
+        return courses
+    
+    @staticmethod
+    def delete(course_id):
+        """Delete Course"""
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM course WHERE course_id = %s", (course_id,))
+        conn.commit()
+        conn.close()

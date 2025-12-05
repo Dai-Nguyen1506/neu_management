@@ -84,7 +84,8 @@
 
                     <!-- Buttons -->
                     <div class="text-end">
-                        <a href="{{ url_for('students.list') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{% if student %}{{ url_for('students.view', student_id=student.student_id) }}{% else %}{{ url_for('students.list') }}{% endif %}"
+                            class="btn btn-secondary">Back</a>
                         <button type="submit" class="btn btn-primary">{% if student %}Update{% else %}Add{% endif %}
                             Student</button>
                     </div>
