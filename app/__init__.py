@@ -22,11 +22,13 @@ def create_app(config_name=None):
     from app.routes.students import students_bp
     from app.routes.instructors import instructors_bp
     from app.routes.programs import programs_bp
+    from app.routes.tuitions import tuitions_bp
     
     app.register_blueprint(home_bp)
     app.register_blueprint(students_bp)
     app.register_blueprint(instructors_bp)
     app.register_blueprint(programs_bp)
+    app.register_blueprint(tuitions_bp)
     
     # Home route
     @app.route('/')
