@@ -1,4 +1,4 @@
--- STORED PROCEDURES
+-- procedures.sql
 USE school_db;
 DELIMITER $$
 
@@ -43,8 +43,8 @@ main_block: BEGIN
         LEAVE main_block;
     END IF;
     -- Insert enrollment
-    INSERT INTO enrollment (student_id, course_id, semester, academic_year, enrolled_date, status)
-    VALUES (p_student_id, p_course_id, p_semester, p_academic_year, CURRENT_TIMESTAMP, 'Enrolled');
+    INSERT INTO enrollment (student_id, course_id, semester, academic_year, status)
+    VALUES (p_student_id, p_course_id, p_semester, p_academic_year, 'Enrolled');
     SET v_enrollment_id = LAST_INSERT_ID();
     SELECT 1 AS success, CONCAT('Success: enrolled, enrollment_id=', v_enrollment_id) AS message;
 END main_block$$
@@ -56,30 +56,12 @@ CREATE PROCEDURE sp_semester_revenue_report(
     IN p_semester VARCHAR(10)
 )
 BEGIN
-    -- Revenue per program
     SELECT
-        pr.program_id,
-        pr.program_name,
-        COUNT(DISTINCT tf.student_id) AS num_students_billed,
-        ROUND(IFNULL(SUM(pay.amount),0), 2) AS total_revenue_collected
+        COUNT(tf.fee_id) AS num_tuitions,
+        ROUND(IFNULL(SUM(pay.amount), 0), 2) AS total_revenue_collected
     FROM tuition_fee tf
-    JOIN student s ON s.student_id = tf.student_id
-    LEFT JOIN program pr ON pr.program_id = s.program_id
     LEFT JOIN payment pay ON pay.fee_id = tf.fee_id
     WHERE tf.academic_year = p_academic_year
-      AND tf.semester = p_semester
-    GROUP BY pr.program_id, pr.program_name
-    ORDER BY total_revenue_collected DESC;
-    -- totals
-    SELECT
-        NULL AS program_id,
-        'ALL PROGRAMS' AS program_name,
-        COUNT(DISTINCT tf.student_id) AS num_students_billed,
-        ROUND(IFNULL(SUM(pay.amount),0), 2) AS total_revenue_collected
-    FROM tuition_fee tf
-    LEFT JOIN payment pay ON pay.fee_id = tf.fee_id 
-    WHERE tf.is_deleted = 0
-      AND tf.academic_year = p_academic_year
       AND tf.semester = p_semester;
 END$$
 
