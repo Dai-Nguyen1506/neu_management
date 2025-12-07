@@ -1,28 +1,47 @@
-# app/connection.py
 import mysql.connector
-from app.config import config
 import os
-
-# Get environment (default to development)
-env = os.getenv('FLASK_ENV', 'development')
-cfg = config.get(env, config['default'])
 
 
 def get_connection():
-    """Get MySQL database connection"""
+    """Create and return MySQL connection (Local + Railway compatible)"""
+
+    host = os.getenv('DB_HOST', 'localhost')
+    user = os.getenv('DB_USER', 'root')
+    password = os.getenv('DB_PASSWORD', '')
+    dbname = os.getenv('DB_NAME', 'school_db')
+    port = int(os.getenv('DB_PORT', 3306))
+
+    # Railway cần tắt SSL
+    ssl_disabled = {
+        "ssl_disabled": True
+    }
+
+    # 1) Tạo database nếu chưa tồn tại (chỉ cần cho Railway)
     try:
-        connection = mysql.connector.connect(
-            host=os.getenv('DB_HOST', 'localhost'),
-            user=os.getenv('DB_USER', 'root'),
-            password=os.getenv('DB_PASSWORD', ''),
-            database=os.getenv('DB_NAME', 'school_db')
+        temp_conn = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+            port=port,
+            **ssl_disabled
         )
-        return connection
+        cur = temp_conn.cursor()
+        cur.execute(f"CREATE DATABASE IF NOT EXISTS {dbname}")
+        temp_conn.close()
+    except Exception as e:
+        print("⚠ Cannot create database:", e)
+
+    # 2) Kết nối DB chính
+    try:
+        conn = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=dbname,
+            port=port,
+            **ssl_disabled
+        )
+        return conn
     except mysql.connector.Error as err:
-        if err.errno == 2003:
-            print("Error: Cannot connect to MySQL server. Check your database connection settings.")
-        elif err.errno == 1045:
-            print("Error: Access denied. Check your username and password.")
-        else:
-            print(f"Error: {err}")
+        print("❌ Database connection error:", err)
         return None

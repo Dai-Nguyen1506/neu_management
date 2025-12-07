@@ -2,6 +2,7 @@
 from flask import Flask, redirect, url_for
 from app.config import config
 import os
+from app.database.init_db import init_database
 
 
 def create_app(config_name=None):
@@ -34,6 +35,14 @@ def create_app(config_name=None):
     @app.route('/')
     def home():
         return redirect(url_for('home.describe'))
+    
+    # Chạy init database ngay trong app context
+    with app.app_context():
+        init_database()
+    
+    @app.before_first_request
+    def startup():
+        init_database()
     
     # Error handlers
     @app.errorhandler(404)
