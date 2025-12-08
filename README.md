@@ -41,7 +41,7 @@ The system has been **fully deployed on a production server** and integrated wit
 ---
 
 ## 📸 Screenshots & Demo
-Place screenshots in the `screenshots/` folder.
+Screenshots are in the `screenshots/` folder.
 
 ### 🌐 Dashboard Interface
 ![Dashboard](screenshots/dashboard.png)
