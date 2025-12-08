@@ -11,7 +11,6 @@
 
 ## 📑 Table of Contents
 - [Project Introduction](#-project-introduction)
-- [Screenshots & Demo](#-screenshots--demo)
 - [Installation Guide](#-installation-guide)
 - [Usage & Examples](#-usage--examples)
 - [Troubleshooting](#-troubleshooting)
