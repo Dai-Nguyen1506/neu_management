@@ -34,7 +34,7 @@
 The system has been **fully deployed on a production server** and integrated with a **CI/CD pipeline**, ensuring automatic build & deployment on every update.
 
 ### 🚀 Try It Now
-- **Demo Server**: *[https://web-production-75f3e.up.railway.app/financial/](https://web-production-75f3e.up.railway.app/financial/)*
+- **Demo Server**: *[https://web-production-75f3e.up.railway.app](https://web-production-75f3e.up.railway.app)*
 - **YouTube Introduction Video**: *[https://www.youtube.com/watch?v=i3MQsx_knPE](https://www.youtube.com/watch?v=i3MQsx_knPE)*
 
 ---
